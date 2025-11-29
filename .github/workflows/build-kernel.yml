@@ -60,23 +60,6 @@ jobs:
         echo "KSU_EXPECTED_SIZE=$(cat $CONFIG_ENV | grep -w "KSU_EXPECTED_SIZE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "KSU_EXPECTED_HASH=$(cat $CONFIG_ENV | grep -w "KSU_EXPECTED_HASH" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
 
-- name: Free disk space
-  run: |
-    sudo rm -rf /usr/share/dotnet
-    sudo rm -rf /opt/ghc
-    sudo rm -rf /usr/local/lib/android
-    sudo rm -rf /usr/local/share/powershell
-    sudo rm -rf /usr/local/share/chromium
-    sudo rm -rf /usr/local/share/boost
-    df -h
-
-- name: Setup ccache
-  run: |
-    sudo apt-get install ccache
-    export USE_CCACHE=1
-    export CCACHE_DIR=$GITHUB_WORKSPACE/.ccache
-
-
     - name: Set swap to 10G
       uses: pierotofy/set-swap-space@master
       with:
